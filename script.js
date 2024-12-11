@@ -28,22 +28,27 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
 
     try {
         console.log('Sending feedback:', feedback);
-        fetch(`https://script.google.com/macros/s/AKfycbxhqLaOAG6TUie0aD_YwLZj_IsJ-kqAprv_SEv8m-A2AtfDNcLdu2M9ADqPLQ_FcPE1/exec`, {
-            redirect: "follow",
-            method: 'POST',
-            body: JSON.stringify(feedback),
-            headers: {
-                'Content-Type': "text/plain;charset=utf-8"
-            }
-        })
-            .then(response => response.text())
-            .then(result => {
-                const res = JSON.parse(result);
-                alert(res.message);
-                document.getElementById('feedbackForm').reset();
-                resetRatingStars();
-                console.log(res);
-            });
+        if (feedback.rating <= 3) {
+            fetch(`https://script.google.com/macros/s/AKfycbxhqLaOAG6TUie0aD_YwLZj_IsJ-kqAprv_SEv8m-A2AtfDNcLdu2M9ADqPLQ_FcPE1/exec`, {
+                redirect: "follow",
+                method: 'POST',
+                body: JSON.stringify(feedback),
+                headers: {
+                    'Content-Type': "text/plain;charset=utf-8"
+                }
+            })
+                .then(response => response.text())
+                .then(result => {
+                    const res = JSON.parse(result);
+                    alert(res.message);
+                    document.getElementById('feedbackForm').reset();
+                    resetRatingStars();
+                    console.log(res);
+                });
+        }
+        else {
+            alert("Thank you for your feedback!");
+        }
     } catch (error) {
         console.error('Error sending feedback:', error);
         alert('Failed to save feedback. Please try again later.');
