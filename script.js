@@ -27,7 +27,7 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
     };
 
     try {
-        console.log('Sending feedback:', feedback);
+        console.log('[INFO] Feedback:', feedback);
         if (feedback.rating <= 3) {
             fetch(`https://script.google.com/macros/s/AKfycbxhqLaOAG6TUie0aD_YwLZj_IsJ-kqAprv_SEv8m-A2AtfDNcLdu2M9ADqPLQ_FcPE1/exec`, {
                 redirect: "follow",
